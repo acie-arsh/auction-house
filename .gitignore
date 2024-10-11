@@ -1,0 +1,4 @@
+*.env
+!exampleConfig.env
+
+node_modules/
