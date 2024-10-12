@@ -4,6 +4,8 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import fileUpload from 'express-fileupload';
 import { connection } from './database/connection.js';
+import { errorMiddleware } from './middlewares/error.js';
+import userRouter from './router/userRoutes.js';
 
 const app = express();
 config({
@@ -12,7 +14,7 @@ config({
 
 app.use(cors({
     origin: [process.env.FRONTEND_URL],
-    methods: ["POST", "PUT", "GET", "DELETE"],
+    methods: ["POST", "GET", "PUT", "DELETE"],
     credentials: true,
 }));
 
@@ -24,6 +26,10 @@ app.use(fileUpload({
     tempFileDir: "/tmp/",
 }));
 
-connection()
+app.use("/api/v1/user", userRouter);
+
+connection();
+
+app.use(errorMiddleware);
 
 export default app;
