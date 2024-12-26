@@ -43,17 +43,17 @@ const Sidebar = () => {
               <span className="text-[#8BC34A]">Bid</span>ium.
             </h4>
           </Link>
-          <ul className="flex flex-col gap-5 w-[100%] pl-8 pr-4">
+          <ul className="flex flex-col gap-4 w-[100%] pl-8 pr-4">
             <li>
               <Link
                 to={"/auctions"}
-                className={`relative flex text-xl gap-5 justify-start items-center hover:text-[#8BC34A] ${
+                className={`relative flex text-lg gap-5 justify-start items-center hover:transition-all hover:duration-300 hover:text-[#8BC34A] ${
                   location.pathname === "/auctions"
                     ? "text-[#8BC34A]"
                     : "text-neutral-500"
                 }`}
               >
-                <RiAuctionFill className="text-3xl" /> Auctions
+                <RiAuctionFill className="text-2xl" /> Auctions
                 <span
                   className={`transition-all duration-100 ease-in-out absolute content-[''] bg-[#8BC34A] rounded-lg w-6 h-12 ${
                     location.pathname === "/auctions" ? "-left-12" : "-left-14"
@@ -64,21 +64,167 @@ const Sidebar = () => {
             <li>
               <Link
                 to={"/leaderboard"}
-                className={`flex text-xl gap-5 justify-start items-center hover:text-[#8BC34A] ${
+                className={`relative flex text-lg gap-5 justify-start items-center hover:transition-all hover:duration-300 hover:text-[#8BC34A] ${
                   location.pathname == "/leaderboard"
                     ? "text-[#8BC34A]"
                     : "text-neutral-500"
                 }`}
               >
-                <MdLeaderboard className="text-3xl" /> Leaderboard
+                <MdLeaderboard className="text-2xl" /> Leaderboard
                 <span
                   className={`transition-all duration-100 ease-in-out absolute content-[''] bg-[#8BC34A] rounded-lg w-6 h-12 ${
-                    location.pathname === "/leaderboard" ? "-left-4" : "-left-14"
+                    location.pathname === "/leaderboard"
+                      ? "-left-12"
+                      : "-left-14"
+                  }`}
+                ></span>
+              </Link>
+            </li>
+            {isAuthenticated && user && user.role === "Seller" && (
+              <>
+                <li>
+                  <Link
+                    to={"/submit-commission"}
+                    className={`relative flex text-lg gap-5 justify-start items-center hover:transition-all hover:duration-300 hover:text-[#8BC34A] ${
+                      location.pathname == "/submit-commission"
+                        ? "text-[#8BC34A]"
+                        : "text-neutral-500"
+                    }`}
+                  >
+                    <FaFileInvoiceDollar className="text-2xl" /> Submit
+                    Commission
+                    <span
+                      className={`transition-all duration-100 ease-in-out absolute content-[''] bg-[#8BC34A] rounded-lg w-6 h-12 ${
+                        location.pathname === "/submit-commission"
+                          ? "-left-12"
+                          : "-left-14"
+                      }`}
+                    ></span>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to={"/create-auction"}
+                    className={`relative flex text-lg gap-5 justify-start items-center hover:transition-all hover:duration-300 hover:text-[#8BC34A] ${
+                      location.pathname == "/create-auction"
+                        ? "text-[#8BC34A]"
+                        : "text-neutral-500"
+                    }`}
+                  >
+                    <IoIosCreate className="text-2xl" /> Create Auction
+                    <span
+                      className={`transition-all duration-100 ease-in-out absolute content-[''] bg-[#8BC34A] rounded-lg w-6 h-12 ${
+                        location.pathname === "/create-auction"
+                          ? "-left-12"
+                          : "-left-14"
+                      }`}
+                    ></span>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to={"/view-my-auctions"}
+                    className={`relative flex text-lg gap-5 justify-start items-center hover:transition-all hover:duration-300 hover:text-[#8BC34A] ${
+                      location.pathname == "/view-my-auctions"
+                        ? "text-[#8BC34A]"
+                        : "text-neutral-500"
+                    }`}
+                  >
+                    <FaEye className="text-2xl" /> My Auctions
+                    <span
+                      className={`transition-all duration-100 ease-in-out absolute content-[''] bg-[#8BC34A] rounded-lg w-6 h-12 ${
+                        location.pathname === "/view-my-auctions"
+                          ? "-left-12"
+                          : "-left-14"
+                      }`}
+                    ></span>
+                  </Link>
+                </li>
+              </>
+            )}
+            {isAuthenticated && user && user.role === "Admin" && (
+              <li>
+                <Link
+                  to={"/dashboard"}
+                  className={`relative flex text-lg gap-5 justify-start items-center hover:transition-all hover:duration-300 hover:text-[#8BC34A] ${
+                    location.pathname == "/dashboard"
+                      ? "text-[#8BC34A]"
+                      : "text-neutral-500"
+                  }`}
+                >
+                  <MdDashboard className="text-2xl" /> Dashboard
+                  <span
+                    className={`transition-all duration-100 ease-in-out absolute content-[''] bg-[#8BC34A] rounded-lg w-6 h-12 ${
+                      location.pathname === "/dashboard"
+                        ? "-left-12"
+                        : "-left-14"
+                    }`}
+                  ></span>
+                </Link>
+              </li>
+            )}
+          </ul>
+          {!isAuthenticated ? (
+            <>
+              <div className="my-4 mx-4 flex gap-4 justify-around">
+                <Link to={"/sign-up"}>Sign Up</Link>
+                <Link to={"/login"}>Login</Link>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="my-4 flex gap-4 w-fit" onClick={handleLogout}>
+                <button>Logout</button>
+              </div>
+            </>
+          )}
+          <hr className="mb-4 mx-4 border-t-[#8BC34A] border-t-[2px]" />
+          <ul className="flex flex-col gap-4 w-[100%] pl-8 pr-4">
+            <li>
+              <Link
+                to={"/how-it-works"}
+                className={`relative flex text-lg gap-5 justify-start items-center hover:transition-all hover:duration-300 hover:text-[#8BC34A] ${
+                  location.pathname === "/how-it-works"
+                    ? "text-[#8BC34A]"
+                    : "text-neutral-500"
+                }`}
+              >
+                <SiGooglesearchconsole className="text-xl" /> How It Works
+                <span
+                  className={`transition-all duration-100 ease-in-out absolute content-[''] bg-[#8BC34A] rounded-lg w-6 h-12 ${
+                    location.pathname === "/how-it-works"
+                      ? "-left-12"
+                      : "-left-14"
+                  }`}
+                ></span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to={"/about"}
+                className={`relative flex text-lg gap-5 justify-start items-center hover:transition-all hover:duration-300 hover:text-[#8BC34A] ${
+                  location.pathname === "/about"
+                    ? "text-[#8BC34A]"
+                    : "text-neutral-500"
+                }`}
+              >
+                <BsFillInfoSquareFill className="text-xl" /> About Us
+                <span
+                  className={`transition-all duration-100 ease-in-out absolute content-[''] bg-[#8BC34A] rounded-lg w-6 h-12 ${
+                    location.pathname === "/about" ? "-left-12" : "-left-14"
                   }`}
                 ></span>
               </Link>
             </li>
           </ul>
+          <IoMdCloseCircleOutline
+            onClick={() => setShow(!show)}
+            className="absolute top-0 right-4 text-[28px] sm:hidden"
+          />
+        </div>
+
+        <div>
+          
         </div>
       </div>
     </>
